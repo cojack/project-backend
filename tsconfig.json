@@ -1,15 +1,29 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "outDir": "dist",
     "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
+    "sourceMap": false,
+    "declaration": false,
+    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "target": "es2018",
+    "allowJs": true,
+    "baseUrl": "src",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
+  "include": [
+    "src/**/*"
+  ],
   "exclude": ["node_modules", "dist"]
 }
