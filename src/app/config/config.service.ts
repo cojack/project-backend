@@ -1,8 +1,7 @@
 import dotenv from 'dotenv-extended';
 import Joi from '@hapi/joi';
 import fs from 'fs';
-import {Inject, Injectable} from '@nestjs/common';
-import {CONFIG_FILE_PATH_TOKEN} from './config.const';
+import {Injectable} from '@nestjs/common';
 
 export type EnvConfig = Record<string, string>;
 
@@ -10,7 +9,7 @@ export type EnvConfig = Record<string, string>;
 export class ConfigService {
 	private readonly envConfig: EnvConfig;
 
-	constructor(@Inject(CONFIG_FILE_PATH_TOKEN) filePath: string) {
+	constructor() {
 		const parsed = dotenv.load({includeProcessEnv: true});
 		const appPackage = fs.readFileSync(`${__dirname}/../../../package.json`, {
 			encoding: 'utf8'
@@ -20,7 +19,6 @@ export class ConfigService {
 		this.envConfig.name = appData.name;
 		this.envConfig.description = appData.description;
 		this.envConfig.version = appData.version;
-		console.log(this.envConfig);
 	}
 
 	get isProduction(): boolean {

@@ -1,1 +1,0 @@
-export const CONFIG_FILE_PATH_TOKEN = Symbol('__CONFIG_FILE_PATH_TOKEN__');
