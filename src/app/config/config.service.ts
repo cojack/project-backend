@@ -1,7 +1,7 @@
 import dotenv from 'dotenv-extended';
 import Joi from '@hapi/joi';
 import fs from 'fs';
-import {Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 export type EnvConfig = Record<string, string>;
 
@@ -10,7 +10,7 @@ export class ConfigService {
 	private readonly envConfig: EnvConfig;
 
 	constructor() {
-		const parsed = dotenv.load({includeProcessEnv: true});
+		const parsed = dotenv.load({ includeProcessEnv: true });
 		const appPackage = fs.readFileSync(`${__dirname}/../../../package.json`, {
 			encoding: 'utf8'
 		});
@@ -45,6 +45,10 @@ export class ConfigService {
 		return this.envConfig.version;
 	}
 
+	public getEnv(name: string): any {
+		return this.envConfig[name];
+	}
+
 	/**
 	 * Ensures all needed variables are set, and returns the validated JavaScript object
 	 * including the applied default values.
@@ -72,10 +76,15 @@ export class ConfigService {
 			APP_LOGGER_LEVEL: Joi.string()
 				.valid('error', 'warn', 'info', 'verbose', 'debug', 'silly')
 				.default('info'),
-			API_AUTH_ENABLED: Joi.boolean().required(),
+			APP_DATABASE_HOST: Joi.string().default('localhost'),
+			APP_DATABASE_PORT: Joi.number().default(5432),
+			APP_DATABASE_USER: Joi.string().required(),
+			APP_DATABASE_PASSWORD: Joi.string().required(),
+			APP_DATABASE_NAME: Joi.string().required(),
+			API_AUTH_ENABLED: Joi.boolean().required()
 		});
 
-		const {error, value: validatedEnvConfig} = envVarsSchema.validate(
+		const { error, value: validatedEnvConfig } = envVarsSchema.validate(
 			envConfig, {
 				abortEarly: false
 			}
