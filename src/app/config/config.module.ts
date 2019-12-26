@@ -1,5 +1,5 @@
-import {Module} from '@nestjs/common';
-import {ConfigService} from './config.service';
+import { Global, Module } from '@nestjs/common';
+import { ConfigService } from './config.service';
 import { TypeOrmConfigService } from './typeorm-config.service';
 
 const SERVICES = [
@@ -7,6 +7,7 @@ const SERVICES = [
 	TypeOrmConfigService
 ];
 
+@Global()
 @Module({
 	providers: [
 		...SERVICES

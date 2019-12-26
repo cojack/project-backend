@@ -1,1 +1,2 @@
-export * from './login/login.command.js';
+export * from './login/login.command';
+export * from './register/register.command';

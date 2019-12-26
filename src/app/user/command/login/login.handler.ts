@@ -11,10 +11,15 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
 
 	async execute(command: LoginCommand) {
 		const { email, password } = command.credentials;
-		const [user] = await this.repository.find({
-			where: [{email}, {password}]
+		let user = await this.repository.findOne({
+			where: {email, password}
 		});
-		const hero = this.publisher.mergeObjectContext(user);
-		hero.commit();
+		if (!user) {
+			return null;
+		}
+		user = this.publisher.mergeObjectContext(user);
+		user.loginEvent();
+		user.commit();
+		return user;
 	}
 }

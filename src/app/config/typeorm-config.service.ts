@@ -11,7 +11,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 
 	createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {
-			retryAttempts: 5,
+			retryAttempts: 1,
 			logging: ['query', 'error', 'schema'],
 			type: 'postgres',
 			host: this.configService.getEnv('APP_DATABASE_HOST'),

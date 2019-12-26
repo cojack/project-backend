@@ -1,14 +1,14 @@
-import {INestApplication} from '@nestjs/common';
-import {NestFactory} from '@nestjs/core';
-import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
-import {useContainer} from 'class-validator';
+import { INestApplication } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { useContainer } from 'class-validator';
 import cors from 'cors';
 import helmet from 'helmet';
 import query from 'qs-middleware';
-import {AppLogger} from './app.logger';
-import {AppModule} from './app.module';
-import {ConfigModule} from './config/config.module';
-import {ConfigService} from './config/config.service';
+import { AppLogger } from './app.logger';
+import { AppModule } from './app.module';
+import { ConfigModule, ConfigService } from './config';
+import { HttpExceptionFilter } from './core/filter';
 
 export class AppDispatcher {
 	private app: INestApplication;
@@ -30,6 +30,7 @@ export class AppDispatcher {
 		});
 		this.config = this.app.select<ConfigModule>(ConfigModule).get<ConfigService>(ConfigService);
 		useContainer(this.app.select(AppModule), {fallbackOnErrors: true});
+		//this.app.useGlobalFilters(new HttpExceptionFilter());
 		this.app.use(cors());
 		this.app.use(query());
 		if (this.config.isProduction) {

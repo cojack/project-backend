@@ -1,6 +1,6 @@
 import { UserEntity } from '../../entity';
 
-export class UserLoginEvent {
+export class UserRegisterEvent {
 	constructor(public readonly user: UserEntity) {
 	}
 }

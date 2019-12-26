@@ -2,6 +2,7 @@ import dotenv from 'dotenv-extended';
 import Joi from '@hapi/joi';
 import fs from 'fs';
 import { Injectable } from '@nestjs/common';
+import { EnvInterface, EnvSchema } from './env.schema';
 
 export type EnvConfig = Record<string, string>;
 
@@ -10,9 +11,9 @@ export class ConfigService {
 	private readonly envConfig: EnvConfig;
 
 	constructor() {
-		const parsed = dotenv.load({ includeProcessEnv: true });
+		const parsed = dotenv.load();
 		const appPackage = fs.readFileSync(`${__dirname}/../../../package.json`, {
-			encoding: 'utf8'
+			encoding: 'utf8',
 		});
 		const appData = JSON.parse(appPackage);
 		this.envConfig = ConfigService.validateInput(parsed);
@@ -45,7 +46,7 @@ export class ConfigService {
 		return this.envConfig.version;
 	}
 
-	public getEnv(name: string): any {
+	public getEnv(name: keyof EnvInterface): any {
 		return this.envConfig[name];
 	}
 
@@ -54,35 +55,7 @@ export class ConfigService {
 	 * including the applied default values.
 	 */
 	private static validateInput(envConfig: EnvConfig): EnvConfig {
-		const envVarsSchema: Joi.ObjectSchema = Joi.object({
-			NODE_ENV: Joi.string()
-				.valid('development', 'production', 'test', 'provision')
-				.default('development'),
-			APP_UUID: Joi.string().guid({
-				version: [
-					'uuidv4',
-					'uuidv5'
-				]
-			}).required(),
-			APP_SALT: Joi.string().required(),
-			APP_PORT: Joi.number().default(3000),
-			APP_HOST: Joi.string().ip({
-				version: [
-					'ipv4',
-					'ipv6'
-				],
-				cidr: 'forbidden'
-			}),
-			APP_LOGGER_LEVEL: Joi.string()
-				.valid('error', 'warn', 'info', 'verbose', 'debug', 'silly')
-				.default('info'),
-			APP_DATABASE_HOST: Joi.string().default('localhost'),
-			APP_DATABASE_PORT: Joi.number().default(5432),
-			APP_DATABASE_USER: Joi.string().required(),
-			APP_DATABASE_PASSWORD: Joi.string().required(),
-			APP_DATABASE_NAME: Joi.string().required(),
-			API_AUTH_ENABLED: Joi.boolean().required()
-		});
+		const envVarsSchema: Joi.ObjectSchema = Joi.object(EnvSchema);
 
 		const { error, value: validatedEnvConfig } = envVarsSchema.validate(
 			envConfig, {
