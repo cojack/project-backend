@@ -8,7 +8,6 @@ import query from 'qs-middleware';
 import { AppLogger } from './app.logger';
 import { AppModule } from './app.module';
 import { ConfigModule, ConfigService } from './config';
-import { HttpExceptionFilter } from './core/filter';
 
 export class AppDispatcher {
 	private app: INestApplication;
@@ -26,10 +25,10 @@ export class AppDispatcher {
 
 	private async createServer(): Promise<void> {
 		this.app = await NestFactory.create(AppModule, {
-			logger: new AppLogger('Nest')
+			logger: new AppLogger('Nest'),
 		});
 		this.config = this.app.select<ConfigModule>(ConfigModule).get<ConfigService>(ConfigService);
-		useContainer(this.app.select(AppModule), {fallbackOnErrors: true});
+		useContainer(this.app.select(AppModule), { fallbackOnErrors: true });
 		//this.app.useGlobalFilters(new HttpExceptionFilter());
 		this.app.use(cors());
 		this.app.use(query());

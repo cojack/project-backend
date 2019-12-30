@@ -20,7 +20,8 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			password: this.configService.getEnv('APP_DATABASE_PASSWORD'),
 			database: this.configService.getEnv('APP_DATABASE_NAME'),
 			entities: [process.cwd() + '/**/*.entity{.ts,.js}'],
-			synchronize: true
+			synchronize: true,
+			//migrations: [process.cwd() + '/**/*.migration{.ts,.js}']
 		};
 	}
 }

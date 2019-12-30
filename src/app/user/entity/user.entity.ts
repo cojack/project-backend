@@ -1,6 +1,17 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { UserLoginEvent, UserRegisterEvent } from '../event';
-import { Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	Generated,
+	JoinTable,
+	ManyToMany,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+	VersionColumn,
+} from 'typeorm';
+import { RoleEntity } from './role.entity';
 
 @Entity()
 export class UserEntity extends AggregateRoot {
@@ -12,11 +23,20 @@ export class UserEntity extends AggregateRoot {
 	@Generated('uuid')
 	public uuid: string;
 
-	@Column()
+	@Column({
+		unique: true,
+		nullable: false
+	})
 	public email: string;
 
-	@Column()
+	@Column({
+		nullable: false
+	})
 	public password: string;
+
+	@ManyToMany(type => RoleEntity)
+	@JoinTable()
+	public roles: RoleEntity[];
 
 	@CreateDateColumn()
 	public createdAt: Date;

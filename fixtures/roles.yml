@@ -1,0 +1,12 @@
+entity: RoleEntity
+items:
+  role1:
+    name: 'superadmin'
+  role2:
+    name: 'admin'
+  role3:
+    name: 'moderator'
+  role4:
+    name: 'user'
+  role5:
+    name: 'guest'
