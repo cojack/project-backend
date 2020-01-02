@@ -1,17 +1,7 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import {
-	Column,
-	CreateDateColumn,
-	Entity,
-	Generated,
-	ManyToOne,
-	OneToOne,
-	PrimaryGeneratedColumn,
-	UpdateDateColumn,
-	VersionColumn,
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, Generated, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
 import { RoleEntity } from '../../user/entity/role.entity';
-import { Type } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 
 @Entity()
 export class AccessControlEntity extends AggregateRoot {
@@ -34,6 +24,7 @@ export class AccessControlEntity extends AggregateRoot {
 
 	@ManyToOne(type => RoleEntity)
 	@Type(() => RoleEntity)
+	@Transform((role: RoleEntity) => role.name, {toPlainOnly: true})
 	public role: RoleEntity;
 
 	@CreateDateColumn()

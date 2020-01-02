@@ -8,10 +8,10 @@ export class JwtService {
 	constructor(private readonly configService: ConfigService) {
 	}
 
-	public createAuthToken(id: string): JwtDto {
+	public createAuthToken(uuid: string): JwtDto {
 		const expiresIn = this.configService.getEnv('APP_SESSION_TIMEOUT');
-		const accessToken = this.createToken(id, expiresIn, this.configService.getEnv('APP_SESSION_SECRET'));
-		const refreshToken = this.createToken(id, this.configService.getEnv('APP_SESSION_REFRESH_TIMEOUT'), this.configService.getEnv('APP_SESSION_REFRESH_SECRET'));
+		const accessToken = this.createToken(uuid, expiresIn, this.configService.getEnv('APP_SESSION_SECRET'));
+		const refreshToken = this.createToken(uuid, this.configService.getEnv('APP_SESSION_REFRESH_TIMEOUT'), this.configService.getEnv('APP_SESSION_REFRESH_SECRET'));
 		return {
 			expiresIn,
 			accessToken,
@@ -30,8 +30,8 @@ export class JwtService {
 		});
 	}
 
-	private createToken(id, expiresIn, secret) {
-		return sign({id}, secret, {
+	private createToken(identity, expiresIn, secret) {
+		return sign({identity}, secret, {
 			expiresIn,
 			audience: this.configService.getEnv('APP_SESSION_DOMAIN'),
 			issuer: this.configService.getEnv('APP_UUID')

@@ -1,14 +1,14 @@
-import { ApiModelProperty } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ExceptionDto {
 
-	@ApiModelProperty()
+	@ApiProperty()
 	public statusCode: number;
 
-	@ApiModelProperty()
+	@ApiProperty()
 	public error: string;
 
-	@ApiModelProperty({
+	@ApiProperty({
 		required: false
 	})
 	public message: string;

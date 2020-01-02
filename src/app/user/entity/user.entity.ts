@@ -9,7 +9,7 @@ import {
 	ManyToMany,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
-	VersionColumn,
+	VersionColumn
 } from 'typeorm';
 import { RoleEntity } from './role.entity';
 

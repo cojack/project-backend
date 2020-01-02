@@ -1,9 +1,10 @@
 import { Controller } from '@nestjs/common';
-import { Crud, CrudController } from '@nestjsx/crud';
-import { ApiUseTags } from '@nestjs/swagger';
+import { Crud, CrudController, Feature } from '@nestjsx/crud';
+import { ApiTags } from '@nestjs/swagger';
 import { CommentEntity } from '../entity/comment.entity';
 import { CommentService } from '../comment.service';
 
+@Feature('comments')
 @Crud({
 	model: {
 		type: CommentEntity
@@ -20,7 +21,7 @@ import { CommentService } from '../comment.service';
 		}
 	}
 })
-@ApiUseTags('comments')
+@ApiTags('comments')
 @Controller('posts/:postId/comments')
 export class CommentController implements CrudController<CommentEntity> {
 	constructor(public service: CommentService) {

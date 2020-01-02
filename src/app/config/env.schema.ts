@@ -20,6 +20,8 @@ export interface EnvInterface {
 	APP_SESSION_DOMAIN: string;
 	APP_SESSION_REFRESH_SECRET: string;
 	APP_SESSION_REFRESH_TIMEOUT: string;
+	APP_COOKIE_NAME: string;
+	APP_COOKIE_SIGNED: boolean;
 }
 
 export const EnvSchema = {
@@ -53,5 +55,7 @@ export const EnvSchema = {
 	APP_SESSION_TIMEOUT: Joi.number().default(DAY_IN_SECONDS),
 	APP_SESSION_DOMAIN: Joi.string().required(),
 	APP_SESSION_REFRESH_SECRET: Joi.string().required(),
-	APP_SESSION_REFRESH_TIMEOUT: Joi.number().default(DAY_IN_SECONDS * 2)
+	APP_SESSION_REFRESH_TIMEOUT: Joi.number().default(DAY_IN_SECONDS * 2),
+	APP_COOKIE_NAME: Joi.string().default('token'),
+	APP_COOKIE_SIGNED: Joi.bool().default(true)
 };

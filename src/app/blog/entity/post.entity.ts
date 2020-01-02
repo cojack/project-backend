@@ -1,6 +1,17 @@
-import { Column, CreateDateColumn, Entity, Generated, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	Generated,
+	ManyToOne,
+	OneToMany,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+	VersionColumn,
+} from 'typeorm';
 import { CommentEntity } from './comment.entity';
 import { Type } from 'class-transformer';
+import { UserEntity } from '../../user/entity';
 
 @Entity()
 export class PostEntity {
@@ -20,6 +31,11 @@ export class PostEntity {
 	@Column({
 		nullable: false
 	})
+	public slug: string;
+
+	@Column({
+		nullable: false
+	})
 	public body: string;
 
 	@Column({
@@ -27,6 +43,10 @@ export class PostEntity {
 		array: true
 	})
 	public tags: string;
+
+	@ManyToOne(type => UserEntity)
+	@Type(() => UserEntity)
+	public author: UserEntity;
 
 	@OneToMany(type => CommentEntity, comment => comment.post)
 	@Type(() => CommentEntity)

@@ -1,16 +1,18 @@
-import { INestApplication } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
 import cors from 'cors';
 import helmet from 'helmet';
 import query from 'qs-middleware';
+import cookieParser from 'cookie-parser';
 import { AppLogger } from './app.logger';
 import { AppModule } from './app.module';
 import { ConfigModule, ConfigService } from './config';
+import { registerTwigEngine } from './core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 export class AppDispatcher {
-	private app: INestApplication;
+	private app: NestExpressApplication;
 	private config: ConfigService;
 	private logger = new AppLogger(AppDispatcher.name);
 
@@ -24,13 +26,14 @@ export class AppDispatcher {
 	}
 
 	private async createServer(): Promise<void> {
-		this.app = await NestFactory.create(AppModule, {
-			logger: new AppLogger('Nest'),
+		this.app = await NestFactory.create<NestExpressApplication>(AppModule, {
+			logger: new AppLogger('Nest')
 		});
+		registerTwigEngine(this.app);
 		this.config = this.app.select<ConfigModule>(ConfigModule).get<ConfigService>(ConfigService);
 		useContainer(this.app.select(AppModule), { fallbackOnErrors: true });
-		//this.app.useGlobalFilters(new HttpExceptionFilter());
 		this.app.use(cors());
+		this.app.use(cookieParser());
 		this.app.use(query());
 		if (this.config.isProduction) {
 			this.app.use(helmet());

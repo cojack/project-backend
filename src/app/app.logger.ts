@@ -23,7 +23,8 @@ export class AppLogger implements LoggerService {
 	}
 
 	error(message: string, trace: string) {
-		this.logger.error(message, trace);
+		message += '\r\n' + trace;
+		this.logger.error(message);
 	}
 
 	warn(message: string) {

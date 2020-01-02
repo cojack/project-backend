@@ -4,9 +4,11 @@ import { ConfigModule, TypeOrmConfigService } from './config';
 import { AuthModule } from './auth';
 import { UserModule } from './user';
 import { CoreModule } from './core/core.module';
-import { AccessControlModule } from 'nest-access-control';
 import { CommandModule } from 'nestjs-command';
 import { BlogModule } from './blog/blog.module';
+import { AdminModule } from './admin/admin.module';
+import { SecurityModule } from './security/security.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
 	imports: [
@@ -16,12 +18,12 @@ import { BlogModule } from './blog/blog.module';
 			imports: [ConfigModule],
 			useExisting: TypeOrmConfigService
 		}),
-		/*AccessControlModule.forRootAsync({
-			useFactory: () => {}
-		}),*/
 		CoreModule,
 		AuthModule,
+		PassportModule,
+		SecurityModule,
 		UserModule,
+		AdminModule,
 		BlogModule
 	]
 })

@@ -2,36 +2,21 @@ entity: AccessControlEntity
 items:
   acsctrl1:
     resource: 'posts'
-    action: 'Read-All'
-    possession: 'any'
-    role: '@role1'
-  acsctrl2:
-    resource: 'posts'
-    action: 'Read-One'
+    action: 'read'
     possession: 'any'
     role: '@role1'
   acsctrl3:
     resource: 'posts'
-    action: 'Create-One'
-    possession: 'any'
-    role: '@role1'
-  acsctrl4:
-    resource: 'posts'
-    action: 'Create-Many'
+    action: 'create'
     possession: 'any'
     role: '@role1'
   acsctrl5:
     resource: 'posts'
-    action: 'Update-One'
-    possession: 'any'
-    role: '@role1'
-  acsctrl6:
-    resource: 'posts'
-    action: 'Replace-One'
+    action: 'update'
     possession: 'any'
     role: '@role1'
   acsctrl7:
     resource: 'posts'
-    action: 'Delete-One'
+    action: 'delete'
     possession: 'any'
     role: '@role1'
