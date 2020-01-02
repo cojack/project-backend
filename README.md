@@ -11,14 +11,18 @@ Projects is based on framework [Nest](https://github.com/nestjs/nest)
 $ npm install
 ```
 
+## Configure
+
+Review `.env.schema` contains all of available environment variables, but not all are required, to check with on are
+required, check it with file: `src/app/config/env.schema.ts` it's filled with [Joi](https://www.npmjs.com/package/@hapi/joi)
+validation, where you will see a `.default` call with default value. I doesn't have for now better solution to figure 
+out which one of env is required.
+
 ## Running the app
 
 ```bash
 # development
 $ npm run start
-
-# watch mode
-$ npm run start:dev
 
 # production mode
 $ npm run start:prod
@@ -42,9 +46,20 @@ $ npm run test:cov
   Nest is [MIT licensed](LICENSE).
 
 
-## TODO
+## Working on
 
-First stage:
+* fixtures
+    * fake users
+    * roles
+    * access control list
+    * fake blog data
+
+* config
+    * env validation
+    * TypeORM config service
+
+* core
+    * kind of sharable resources
 
 * auth (jwt)
     * login
@@ -53,6 +68,21 @@ First stage:
     * password reset
     * password remind
     * notifications
+    
+* admin ([AdminLTE](https://adminlte.io/))
+    * login
+    * management
+    
+* security
+    * voters
+    * guards
+    
+* user
+    * business logic
+    
+* blog - crud example
+    * posts
+    * comments    
     
 Next stages:
     to be continued 

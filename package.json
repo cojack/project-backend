@@ -2,7 +2,7 @@
   "name": "project-backend",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "cojack <xcojack@gmail.com>",
   "license": "MIT",
   "scripts": {
     "postinstall": "./scripts/after_install.sh",
@@ -11,8 +11,6 @@
     "cli": "ts-node src/cli.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "ts-node src/main.ts",
-    "start:dev": "nest start --watch",
-    "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "jest",
@@ -58,8 +56,6 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@nestjs/cli": "^6.12.9",
-    "@nestjs/schematics": "^6.7.6",
     "@nestjs/testing": "^6.10.13",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.1",
