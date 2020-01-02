@@ -35,3 +35,6 @@ lerna-debug.log*
 
 # Envs
 .env
+
+public/dist
+public/plugins

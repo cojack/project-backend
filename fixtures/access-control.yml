@@ -1,0 +1,22 @@
+entity: AccessControlEntity
+items:
+  acsctrl1:
+    resource: 'posts'
+    action: 'read'
+    possession: 'any'
+    role: '@role1'
+  acsctrl3:
+    resource: 'posts'
+    action: 'create'
+    possession: 'any'
+    role: '@role1'
+  acsctrl5:
+    resource: 'posts'
+    action: 'update'
+    possession: 'any'
+    role: '@role1'
+  acsctrl7:
+    resource: 'posts'
+    action: 'delete'
+    possession: 'any'
+    role: '@role1'

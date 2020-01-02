@@ -8,8 +8,8 @@ logger.log(`Start`);
 const dispatcher = new AppDispatcher();
 dispatcher.dispatch()
 	.then(() => logger.log('Everything up'))
-	.catch(e => {
-		logger.error(e.message, e.stack);
+	.catch(err => {
+		logger.error(err.message, err.stack);
 		process.exit(1);
 	});
 

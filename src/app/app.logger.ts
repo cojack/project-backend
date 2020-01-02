@@ -3,9 +3,7 @@ import {createLogger, format, Logger, transports} from 'winston';
 
 const {combine, timestamp, label, printf} = format;
 
-const projectFormat = printf(({level, message, label, timestamp}) => {
-	return `${timestamp} [${level.toUpperCase()}] ${label} - ${message}`;
-});
+const projectFormat = printf(opt => `${opt.timestamp} [${opt.level.toUpperCase()}] ${opt.label} - ${opt.message}`);
 
 export class AppLogger implements LoggerService {
 	private logger: Logger;
@@ -25,7 +23,8 @@ export class AppLogger implements LoggerService {
 	}
 
 	error(message: string, trace: string) {
-		this.logger.error(message, trace);
+		message += '\r\n' + trace;
+		this.logger.error(message);
 	}
 
 	warn(message: string) {

@@ -1,0 +1,14 @@
+entity: PostEntity
+items:
+  post{1..30}:
+    title: '{{lorem.sentence}}'
+    slug: '{{lorem.slug}}'
+    body: '{{lorem.paragraphs}}'
+    author: '@user{1..10}'
+    tags:
+      - '{{lorem.word}}'
+      - '{{lorem.word}}'
+      - '{{lorem.word}}'
+      - '{{lorem.word}}'
+      - '{{lorem.word}}'
+      - '{{lorem.word}}'
