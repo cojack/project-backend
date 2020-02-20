@@ -1,6 +1,11 @@
 entity: UserEntity
 processor: ./processor/UserProcessor
 items:
+  admin:
+    email: 'admin@pb.local'
+    password: 'admin'
+    roles:
+      - '@role1'
   user{1..10}:
     email: '{{internet.email}}'
     password: '{{internet.password}}'

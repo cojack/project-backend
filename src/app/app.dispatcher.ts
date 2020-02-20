@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import swStats from 'swagger-stats';
 import { useContainer } from 'class-validator';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -29,8 +30,8 @@ export class AppDispatcher {
 		this.app = await NestFactory.create<NestExpressApplication>(AppModule, {
 			logger: new AppLogger('Nest')
 		});
-		registerTwigEngine(this.app);
 		this.config = this.app.select<ConfigModule>(ConfigModule).get<ConfigService>(ConfigService);
+		registerTwigEngine(this.app, this.config);
 		useContainer(this.app.select(AppModule), { fallbackOnErrors: true });
 		this.app.use(cors());
 		this.app.use(cookieParser());
@@ -47,11 +48,16 @@ export class AppDispatcher {
 
 		const document = SwaggerModule.createDocument(this.app, options);
 		SwaggerModule.setup('/swagger', this.app, document);
+		this.app.use(swStats.getMiddleware({
+			swaggerSpec: document,
+			uriPath: '/swagger-stats'
+		}));
 	}
 
 	private async startServer(): Promise<void> {
 		await this.app.listen(this.config.port, this.config.host);
 		this.logger.log(`Swagger is exposed at http://${this.config.host}:${this.config.port}/swagger`);
+		this.logger.log(`Stats are exposed at http://${this.config.host}:${this.config.port}/swagger-stats/ux`);
 		this.logger.log(`Server is listening http://${this.config.host}:${this.config.port}`);
 	}
 }

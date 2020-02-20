@@ -13,7 +13,7 @@ export class ConfigService {
 	constructor() {
 		const parsed = dotenv.load();
 		const appPackage = fs.readFileSync(`${__dirname}/../../../package.json`, {
-			encoding: 'utf8',
+			encoding: 'utf8'
 		});
 		const appData = JSON.parse(appPackage);
 		this.envConfig = ConfigService.validateInput(parsed);

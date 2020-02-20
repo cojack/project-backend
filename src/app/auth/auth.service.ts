@@ -1,14 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CredentialsDto, JwtDto, RegisterDto, TokenDto } from './dto';
 import { LoginCommand, RegisterCommand } from './command';
 import { JwtService } from './jwt.service';
 import { UserEntity } from '../user/entity';
+import { RemoveTokenCommand, StoreTokenCommand } from '../security/cqrs';
+import { TokenEntity } from '../security/entity';
+import { GetTokenQuery } from '../security/cqrs/query/token/get-token.query';
 
 @Injectable()
 export class AuthService {
 	constructor(
 		private readonly commandBus: CommandBus,
+		private readonly queryBus: QueryBus,
 		private readonly jwtService: JwtService
 	) {
 	}
@@ -20,7 +24,11 @@ export class AuthService {
 		if (!user) {
 			throw new NotFoundException();
 		}
-		const authToken = this.jwtService.createAuthToken(user.uuid);
+		const authToken = this.jwtService.createAuthToken();
+
+		await this.deleteToken(user);
+		await this.storeToken(user, authToken);
+
 		return {user, authToken};
 	}
 
@@ -30,7 +38,19 @@ export class AuthService {
 		);
 	}
 
-	public validateUser(payload: TokenDto) {
-		return true;
+	public async validateToken(authToken: TokenDto): Promise<TokenEntity> {
+		const token: TokenEntity = await this.queryBus.execute(new GetTokenQuery(authToken));
+		if (!token) {
+			throw new Error(`Token identity ${authToken.identity} not found in database`);
+		}
+		return token;
+	}
+
+	private async storeToken(user: UserEntity, authToken: JwtDto): Promise<TokenEntity> {
+		return this.commandBus.execute(new StoreTokenCommand(user, authToken));
+	}
+
+	private async deleteToken(user: UserEntity): Promise<void> {
+		return this.commandBus.execute(new RemoveTokenCommand(user));
 	}
 }

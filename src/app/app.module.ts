@@ -9,11 +9,12 @@ import { BlogModule } from './blog/blog.module';
 import { AdminModule } from './admin/admin.module';
 import { SecurityModule } from './security/security.module';
 import { PassportModule } from '@nestjs/passport';
+import { awsSsmProvider } from './config/provider/aws-ssm.provider';
 
 @Module({
 	imports: [
 		CommandModule,
-		ConfigModule,
+		ConfigModule.forRoot(),
 		TypeOrmModule.forRootAsync({
 			imports: [ConfigModule],
 			useExisting: TypeOrmConfigService

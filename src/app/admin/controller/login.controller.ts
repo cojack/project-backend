@@ -1,43 +1,37 @@
-import { Body, Controller, Get, Post, Render, Res, Scope, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Render, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { CredentialsDto } from '../../auth/dto';
 import { ConfigService } from '../../config';
 import { AuthService } from '../../auth';
 import { PasswordPipe } from '../../auth/pipe/password.pipe';
-import { CookieEntity } from '../entity/cookie.entity';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { AppLogger } from '../../app.logger';
 
 @Controller('admin')
 export class LoginController {
+	private readonly logger = new AppLogger(LoginController.name);
+
 	constructor(
-		@InjectRepository(CookieEntity) private readonly cookieRepository: Repository<CookieEntity>,
 		private readonly configService: ConfigService,
-		private readonly authService: AuthService
+		private readonly authService: AuthService,
 	) {
 	}
 
 	@Render('@admin/login')
 	@Get('/login')
-	public getLoginAction() {
-		return {};
+	public getLoginAction(): void {
 	}
 
-	@Render('@admin/login')
 	@Post('/login')
-	public async postLoginAction(@Body(PasswordPipe) credentials: CredentialsDto, @Res() res: Response) {
+	public async postLoginAction(@Body(PasswordPipe) credentials: CredentialsDto, @Res() res: Response): Promise<void> {
 		try {
 			const { user, authToken } = await this.authService.login(credentials);
-			const cookieEntity = this.cookieRepository.create({
-				token: authToken.accessToken,
-				expiresAt: authToken.expiresIn,
-				user
-			});
-			await this.cookieRepository.save(cookieEntity);
-			res.cookie(this.configService.getEnv('APP_COOKIE_NAME'), authToken.accessToken);
-			res.redirect('/admin');
+
+			return res
+				.cookie(this.configService.getEnv('APP_COOKIE_NAME'), authToken.uuid, { expires: authToken.expiresAt })
+				.redirect('/admin');
 		} catch (err) {
-			return { err };
+			this.logger.exception(err);
+			return res.render('@admin/login', { err });
 		}
 	}
 }

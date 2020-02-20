@@ -1,4 +1,4 @@
-import { Voter, VoterRegistry } from '../../security/voter';
+import { Voter, VoterRegistry } from '../../security/adm/voter';
 import { Injectable } from '@nestjs/common';
 import { CrudActions } from '@nestjsx/crud';
 import { InjectRepository } from '@nestjs/typeorm';

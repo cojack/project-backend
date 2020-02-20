@@ -1,25 +1,8 @@
-import { AggregateRoot } from '@nestjs/cqrs';
-import { Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn, Unique, UpdateDateColumn, VersionColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { BaseEntity } from '../../core/entity';
 
 @Entity()
-export class RoleEntity extends AggregateRoot {
-
-	@PrimaryGeneratedColumn()
-	public id: string;
-
-	@Column()
-	@Generated('uuid')
-	public uuid: string;
-
+export class RoleEntity extends BaseEntity {
 	@Column({unique: true, nullable: false})
 	public name: string;
-
-	@CreateDateColumn()
-	public createdAt: Date;
-
-	@UpdateDateColumn()
-	public updatedAt: Date;
-
-	@VersionColumn()
-	public version: number;
 }

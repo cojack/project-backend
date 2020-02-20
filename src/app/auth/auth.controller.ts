@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, Post, UseGuards, UsePipes, ValidationPipe, Request } from '@nestjs/common';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CredentialsDto, JwtDto, RegisterDto } from './dto';
 import { PasswordPipe } from './pipe/password.pipe';
 import { AuthService } from './auth.service';
@@ -34,6 +34,7 @@ export class AuthController {
 	}
 
 	@UseGuards(AuthGuard('jwt'))
+	@ApiBearerAuth()
 	@Post('login2')
 	async login2(@Request() req) {
 		return req.user;

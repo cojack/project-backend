@@ -1,6 +1,6 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import nodemailer from 'nodemailer';
-import { WelcomeMailCommand } from '../../../user/command';
+import { WelcomeMailCommand } from '../../../user/cqrs/command';
 import { UserEntity } from '../../../user/entity';
 
 @CommandHandler(WelcomeMailCommand)

@@ -1,0 +1,1 @@
+export const ENVIRONMENT_PROVIDER = Symbol('__ENVIRONMENT_PROVIDER__');
