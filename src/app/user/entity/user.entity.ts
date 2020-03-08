@@ -34,7 +34,9 @@ export class UserEntity extends AggregateRoot {
 	})
 	public password: string;
 
-	@ManyToMany(type => RoleEntity)
+	@ManyToMany(type => RoleEntity, {
+		eager: true
+	})
 	@JoinTable()
 	public roles: RoleEntity[];
 
