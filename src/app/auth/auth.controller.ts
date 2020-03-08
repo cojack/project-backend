@@ -1,10 +1,9 @@
-import { Body, Controller, HttpCode, Post, UseGuards, UsePipes, ValidationPipe, Request } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, HttpCode, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CredentialsDto, JwtDto, RegisterDto } from './dto';
 import { PasswordPipe } from './pipe/password.pipe';
 import { AuthService } from './auth.service';
 import { ExceptionDto } from '../core';
-import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -31,12 +30,5 @@ export class AuthController {
 	@ApiResponse({ status: 204, description: 'NO_CONTENT' })
 	public async register(@Body(PasswordPipe) data: RegisterDto): Promise<void> {
 		return this.authService.register(data);
-	}
-
-	@UseGuards(AuthGuard('jwt'))
-	@ApiBearerAuth()
-	@Post('login2')
-	async login2(@Request() req) {
-		return req.user;
 	}
 }

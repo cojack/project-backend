@@ -4,6 +4,7 @@ import { TokenStorageInterface } from '../authorization-checker';
 
 export abstract class Voter implements VoterInterface {
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public async vote(token: TokenStorageInterface, subject: any, attributes: any[]): Promise<AccessEnum> {
 		let vote = AccessEnum.ACCESS_ABSTAIN;
 

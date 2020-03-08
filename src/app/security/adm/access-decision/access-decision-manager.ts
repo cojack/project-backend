@@ -13,6 +13,7 @@ export class AccessDecisionManager implements AccessDecisionManagerInterface {
 	) {
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public async decide(token: TokenStorageInterface, attributes: any[], object: any): Promise<boolean> {
 		switch (this.strategy) {
 			case AccessDecisionStrategyEnum.STRATEGY_AFFIRMATIVE:

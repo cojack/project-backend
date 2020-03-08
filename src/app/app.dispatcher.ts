@@ -17,12 +17,12 @@ export class AppDispatcher {
 	private config: ConfigService;
 	private logger = new AppLogger(AppDispatcher.name);
 
-	async dispatch(): Promise<void> {
+	public async dispatch(): Promise<void> {
 		await this.createServer();
 		return this.startServer();
 	}
 
-	async shutdown(): Promise<void> {
+	public async shutdown(): Promise<void> {
 		await this.app.close();
 	}
 

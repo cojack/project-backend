@@ -9,7 +9,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 
 	}
 
-	createTypeOrmOptions(): TypeOrmModuleOptions {
+	public createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {
 			retryAttempts: 1,
 			logging: ['query', 'error', 'schema'],

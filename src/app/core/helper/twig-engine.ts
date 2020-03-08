@@ -1,20 +1,20 @@
 import { TwingEnvironment, TwingLoaderFilesystem } from 'twing';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ConfigService } from '../../config';
+import View from 'express/lib/view';
 
-const View = require('express/lib/view');
-
-function TwigView(name, options) {
+function TwigView(name, options): void {
 	View.call(this, name, options);
 }
 
 TwigView.prototype = Object.create(View.prototype);
-TwigView.prototype.lookup = (name) => name;
+TwigView.prototype.lookup = (name): string => name;
 
-export function registerTwigEngine(app: NestExpressApplication, config: ConfigService) {
+export function registerTwigEngine(app: NestExpressApplication, config: ConfigService): void {
 	const loader = new TwingLoaderFilesystem();
 	loader.addPath(__dirname + '/../../admin/template', 'admin');
-	const twing = new TwingEnvironment(loader, {debug: true, cache: false, auto_reload: true});
+	// eslint-disable-next-line @typescript-eslint/camelcase
+	const twing = new TwingEnvironment(loader, { debug: true, cache: false, auto_reload: true });
 	twing.addGlobal('config', config);
 	const express = app.getHttpAdapter().getInstance();
 	twing.addGlobal('url', express.locals.url);

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { sign, verify } from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { v4 } from 'uuid';
 import { ConfigService } from '../config';
-import { JwtDto, TokenDto } from './dto';
+import { JwtDto } from './dto';
 
 @Injectable()
 export class JwtService {
@@ -16,12 +16,12 @@ export class JwtService {
 
 		const accessToken = this.createToken({
 			identity: uuid,
-			iat: now,
+			iat: now
 		}, expiresIn, this.configService.getEnv('APP_SESSION_SECRET'));
 
 		const refreshToken = this.createToken({
 			identity: uuid,
-			iat: now,
+			iat: now
 		}, this.configService.getEnv('APP_SESSION_REFRESH_TIMEOUT'), this.configService.getEnv('APP_SESSION_REFRESH_SECRET'));
 
 		const expiresAt = new Date((now + expiresIn) * 1000);
@@ -31,7 +31,7 @@ export class JwtService {
 			expiresAt,
 			expiresIn,
 			accessToken,
-			refreshToken,
+			refreshToken
 		};
 	}
 
@@ -39,7 +39,7 @@ export class JwtService {
 		return sign(payload, secret, {
 			expiresIn,
 			audience: this.configService.getEnv('APP_SESSION_DOMAIN'),
-			issuer: this.configService.getEnv('APP_UUID'),
+			issuer: this.configService.getEnv('APP_UUID')
 		});
 	}
 }

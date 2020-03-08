@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { ConfigService } from '../../config';
 import { TokenDto } from '../dto';
 import { AppLogger } from '../../app.logger';
+import { UserEntity } from '../../user/entity';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -22,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 		});
 	}
 
-	async validate(payload: TokenDto) {
+	public async validate(payload: TokenDto): Promise<UserEntity> {
 		try {
 			const { user } = await this.authService.validateToken(payload);
 			return user;

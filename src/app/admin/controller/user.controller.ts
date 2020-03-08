@@ -5,7 +5,7 @@ export class UserController {
 
 	@Render('@admin/user/index')
 	@Get()
-	public indexAction() {
-
+	public indexAction(): void {
+		return;
 	}
 }

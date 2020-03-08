@@ -19,12 +19,13 @@ export class LoginController {
 	@Render('@admin/login')
 	@Get('/login')
 	public getLoginAction(): void {
+		return;
 	}
 
 	@Post('/login')
 	public async postLoginAction(@Body(PasswordPipe) credentials: CredentialsDto, @Res() res: Response): Promise<void> {
 		try {
-			const { user, authToken } = await this.authService.login(credentials);
+			const { authToken } = await this.authService.login(credentials);
 
 			return res
 				.cookie(this.configService.getEnv('APP_COOKIE_NAME'), authToken.uuid, { expires: authToken.expiresAt })

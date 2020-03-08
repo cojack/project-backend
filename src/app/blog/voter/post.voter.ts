@@ -10,7 +10,7 @@ import { AclActionEnum, AclPossessionEnum } from '../../security/enum';
 
 @Injectable()
 export class PostVoter extends Voter {
-	static readonly RESOURCE = 'posts';
+	public static readonly RESOURCE = 'posts';
 
 	private readonly attributes = [
 		CrudActions.ReadOne,
@@ -35,13 +35,12 @@ export class PostVoter extends Voter {
 	}
 
 	protected async voteOnAttribute(attribute: CrudActions, subject: CrudSubjectInterface, token): Promise<boolean> {
-		switch (attribute) {
-			case CrudActions.ReadOne:
-				return this.canRead(attribute, subject, token);
+		if (attribute === CrudActions.ReadOne) {
+			return this.canRead(attribute, subject, token);
 		}
 	}
 
-	private async canRead(attribute: CrudActions, subject: CrudSubjectInterface, token) {
+	private async canRead(attribute: CrudActions, subject: CrudSubjectInterface, token): Promise<boolean> {
 		const user = await token.getUser();
 		const post = await this.repository.findOne(subject.params.id);
 		const permission = this.accessControlService.getAclPermission(user, subject.resource, AclActionEnum.READ, AclPossessionEnum.OWN);

@@ -44,11 +44,11 @@ export class PostEntity {
 	})
 	public tags: string;
 
-	@ManyToOne(type => UserEntity)
+	@ManyToOne(() => UserEntity)
 	@Type(() => UserEntity)
 	public author: UserEntity;
 
-	@OneToMany(type => CommentEntity, comment => comment.post)
+	@OneToMany(() => CommentEntity, comment => comment.post)
 	@Type(() => CommentEntity)
 	public comments: CommentEntity[];
 

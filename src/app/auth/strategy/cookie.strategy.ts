@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { JwtService } from '../jwt.service';
 import { TokenDto } from '../dto';
 import { RedirectStrategy } from './passport/redirect.strategy';
+import { UserEntity } from '../../user/entity';
 
 @Injectable()
 export class CookieStrategy extends PassportStrategy(RedirectStrategy, 'cookie') {
@@ -20,7 +21,7 @@ export class CookieStrategy extends PassportStrategy(RedirectStrategy, 'cookie')
 		});
 	}
 
-	async validate(cookie: string) {
+	public async validate(cookie: string): Promise<UserEntity> {
 		const { user } = await this.authService.validateToken({ identity: cookie } as TokenDto);
 		return user;
 	}

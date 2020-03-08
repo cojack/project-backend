@@ -8,7 +8,7 @@ export class StoreTokenHandler implements ICommandHandler<StoreTokenCommand> {
 	constructor(private readonly tokenRepository: TokenRepository) {
 	}
 
-	execute(command: StoreTokenCommand): Promise<TokenEntity> {
+	public execute(command: StoreTokenCommand): Promise<TokenEntity> {
 		const { authToken, user } = command;
 		const tokenEntity = this.tokenRepository.create({
 			uuid: authToken.uuid,

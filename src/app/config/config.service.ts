@@ -22,30 +22,31 @@ export class ConfigService {
 		this.envConfig.version = appData.version;
 	}
 
-	get isProduction(): boolean {
+	public get isProduction(): boolean {
 		return this.envConfig.NODE_ENV === 'production';
 	}
 
-	get port(): number {
+	public get port(): number {
 		return parseInt(this.envConfig.APP_PORT, 10);
 	}
 
-	get host(): string {
+	public get host(): string {
 		return this.envConfig.APP_HOST;
 	}
 
-	get name(): string {
+	public get name(): string {
 		return this.envConfig.name;
 	}
 
-	get description(): string {
+	public get description(): string {
 		return this.envConfig.description;
 	}
 
-	get version(): string {
+	public get version(): string {
 		return this.envConfig.version;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public getEnv(name: keyof EnvInterface): any {
 		return this.envConfig[name];
 	}

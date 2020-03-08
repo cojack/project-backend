@@ -22,7 +22,7 @@ export class AccessControlEntity extends AggregateRoot {
 	@Column()
 	public possession: string;
 
-	@ManyToOne(type => RoleEntity)
+	@ManyToOne(() => RoleEntity)
 	@Type(() => RoleEntity)
 	@Transform((role: RoleEntity) => role.name, {toPlainOnly: true})
 	public role: RoleEntity;

@@ -12,7 +12,7 @@ export class CrudGuard implements CanActivate {
 		private readonly accessControlService: AccessControlService
 	) {}
 
-	async canActivate(context: ExecutionContext): Promise<boolean> {
+	public async canActivate(context: ExecutionContext): Promise<boolean> {
 		const handler = context.getHandler();
 		const request: Request = context.switchToHttp().getRequest();
 		const controller = context.getClass();
