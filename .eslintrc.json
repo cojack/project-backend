@@ -1,0 +1,35 @@
+{
+    "root": true,
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "no-tabs": "off",
+        "indent": ["error", "tab"],
+        "comma-dangle": "error",
+        "@typescript-eslint/explicit-member-accessibility": "off"
+    },
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx"],
+            "rules": {
+                "@typescript-eslint/explicit-member-accessibility": ["error", {
+                    "accessibility": "explicit",
+                    "overrides": {
+                        "accessors": "explicit",
+                        "constructors": "no-public",
+                        "methods": "explicit",
+                        "properties": "explicit",
+                        "parameterProperties": "explicit"
+                    }
+                }]
+            }
+        }
+    ]
+}
