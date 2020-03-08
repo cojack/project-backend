@@ -11,7 +11,7 @@ const SERVICES: any = [
 @Global()
 @Module({})
 export class ConfigModule {
-	static  forRoot(providers?: Provider[]) {
+	static  forRoot(providers: Provider[] = []) {
 		if (providers.length) {
 			SERVICES.push(...providers);
 		}
