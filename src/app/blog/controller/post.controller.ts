@@ -2,10 +2,11 @@ import { Controller, UseGuards } from '@nestjs/common';
 import { PostEntity } from '../entity/post.entity';
 import { Crud, CrudController, Feature } from '@nestjsx/crud';
 import { PostService } from '../post.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CrudGuard } from '../../security';
 import { AuthGuard } from '@nestjs/passport';
 
+@ApiBearerAuth()
 @UseGuards(AuthGuard('jwt'), CrudGuard)
 @Feature('posts')
 @Crud({
