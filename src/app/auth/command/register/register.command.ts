@@ -1,6 +1,5 @@
 import { RegisterDto } from '../../dto';
 
 export class RegisterCommand {
-	constructor(public readonly register: RegisterDto) {
-	}
+	constructor(public readonly register: RegisterDto) {}
 }

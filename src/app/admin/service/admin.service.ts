@@ -6,8 +6,7 @@ import { AccessControlEntity, GetGrantsQuery } from '../../security';
 
 @Injectable()
 export class AdminService {
-	constructor(private readonly queryBus: QueryBus) {
-	}
+	constructor(private readonly queryBus: QueryBus) {}
 
 	public getRoles(): Promise<RoleEntity[]> {
 		return this.queryBus.execute(new GetRolesQuery());

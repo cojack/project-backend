@@ -1,5 +1,5 @@
 import { AccessControl, Permission } from 'accesscontrol';
-import { Action, Possession } from 'accesscontrol/lib/enums';
+import { Action } from 'accesscontrol/lib/enums';
 import { AccessControlEntity } from '../entity';
 import { GRANT_LIST_TOKEN } from '../security.constants';
 import { Inject, Injectable } from '@nestjs/common';

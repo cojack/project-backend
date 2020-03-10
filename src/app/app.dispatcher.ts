@@ -17,12 +17,12 @@ export class AppDispatcher {
 	private config: ConfigService;
 	private logger = new AppLogger(AppDispatcher.name);
 
-	async dispatch(): Promise<void> {
+	public async dispatch(): Promise<void> {
 		await this.createServer();
 		return this.startServer();
 	}
 
-	async shutdown(): Promise<void> {
+	public async shutdown(): Promise<void> {
 		await this.app.close();
 	}
 
@@ -48,10 +48,12 @@ export class AppDispatcher {
 
 		const document = SwaggerModule.createDocument(this.app, options);
 		SwaggerModule.setup('/swagger', this.app, document);
-		this.app.use(swStats.getMiddleware({
-			swaggerSpec: document,
-			uriPath: '/swagger-stats'
-		}));
+		this.app.use(
+			swStats.getMiddleware({
+				swaggerSpec: document,
+				uriPath: '/swagger-stats'
+			})
+		);
 	}
 
 	private async startServer(): Promise<void> {

@@ -7,12 +7,9 @@ import { UserEntity } from '../../user/entity';
 
 @Injectable()
 export class CrudGuard implements CanActivate {
-	constructor(
-		private readonly authorizationChecker: AuthorizationChecker,
-		private readonly accessControlService: AccessControlService
-	) {}
+	constructor(private readonly authorizationChecker: AuthorizationChecker, private readonly accessControlService: AccessControlService) {}
 
-	async canActivate(context: ExecutionContext): Promise<boolean> {
+	public async canActivate(context: ExecutionContext): Promise<boolean> {
 		const handler = context.getHandler();
 		const request: Request = context.switchToHttp().getRequest();
 		const controller = context.getClass();

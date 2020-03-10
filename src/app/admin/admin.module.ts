@@ -10,15 +10,7 @@ import { UserController } from './controller/user.controller';
 
 @Module({
 	imports: [CqrsModule, AuthModule],
-	controllers: [
-		AdminController,
-		LoginController,
-		UserController,
-		ReminderController,
-		AccessControlController
-	],
-	providers: [AdminService],
+	controllers: [AdminController, LoginController, UserController, ReminderController, AccessControlController],
+	providers: [AdminService]
 })
-export class AdminModule {
-
-}
+export class AdminModule {}

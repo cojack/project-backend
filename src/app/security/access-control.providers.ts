@@ -10,9 +10,11 @@ export const accessControlProviders: Provider[] = [
 	{
 		provide: GRANT_LIST_TOKEN,
 		useFactory: async (repository: Repository<AccessControlEntity>): Promise<GrantListDto[]> => {
-			const accessControlList = await repository.find({relations: ['role']});
+			const accessControlList = await repository.find({ relations: ['role'] });
 			const plainList = classToPlain<AccessControlEntity>(accessControlList);
-			return plainToClass<GrantListDto, Object>(GrantListDto, plainList, {excludeExtraneousValues: true});
+			return plainToClass<GrantListDto, object>(GrantListDto, plainList, {
+				excludeExtraneousValues: true
+			});
 		},
 		inject: [AccessControlRepository]
 	}

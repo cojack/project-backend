@@ -6,14 +6,19 @@ import { getRepository, getConnection } from 'typeorm';
 
 @Injectable()
 export class FixturesCli {
-	constructor() { }
-
-	@Command({ command: 'fixtures <fixturesPath>', describe: 'load fixtures', autoExit: true })
-	async create(@Positional({
-		name: 'fixturesPath',
-		describe: 'path to the fixtures',
-		type: 'string',
-	}) fixturesPath: string) {
+	@Command({
+		command: 'fixtures <fixturesPath>',
+		describe: 'load fixtures',
+		autoExit: true
+	})
+	public async create(
+		@Positional({
+			name: 'fixturesPath',
+			describe: 'path to the fixtures',
+			type: 'string'
+		})
+		fixturesPath: string
+	): Promise<void> {
 		const loader = new Loader();
 		loader.load(path.resolve(fixturesPath));
 

@@ -1,3 +1,1 @@
-export class AuthGuard {
-
-}
+export class AuthGuard {}

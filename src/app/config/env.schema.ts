@@ -28,19 +28,15 @@ export const EnvSchema = {
 	NODE_ENV: Joi.string()
 		.valid('development', 'production', 'test', 'provision')
 		.default('development'),
-	APP_UUID: Joi.string().guid({
-		version: [
-			'uuidv4',
-			'uuidv5'
-		]
-	}).required(),
+	APP_UUID: Joi.string()
+		.guid({
+			version: ['uuidv4', 'uuidv5']
+		})
+		.required(),
 	APP_SALT: Joi.string().required(),
 	APP_PORT: Joi.number().default(3000),
 	APP_HOST: Joi.string().ip({
-		version: [
-			'ipv4',
-			'ipv6'
-		],
+		version: ['ipv4', 'ipv6'],
 		cidr: 'forbidden'
 	}),
 	APP_LOGGER_LEVEL: Joi.string()

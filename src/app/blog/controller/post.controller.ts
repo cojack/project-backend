@@ -24,6 +24,5 @@ import { AuthGuard } from '@nestjs/passport';
 @ApiTags('posts')
 @Controller('posts')
 export class PostController implements CrudController<PostEntity> {
-	constructor(public service: PostService) {
-	}
+	constructor(public service: PostService) {}
 }

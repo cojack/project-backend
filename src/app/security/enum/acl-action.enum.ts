@@ -1,5 +1,5 @@
 export enum AclActionEnum {
-	CREATE= 'create',
+	CREATE = 'create',
 	READ = 'read',
 	UPDATE = 'update',
 	DELETE = 'delete'

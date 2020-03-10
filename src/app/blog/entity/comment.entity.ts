@@ -5,7 +5,6 @@ import { UserEntity } from '../../user/entity';
 
 @Entity()
 export class CommentEntity {
-
 	@PrimaryGeneratedColumn()
 	public id: string;
 
@@ -16,11 +15,14 @@ export class CommentEntity {
 	@Column()
 	public content: string;
 
-	@ManyToOne(type => UserEntity)
+	@ManyToOne(() => UserEntity)
 	@Type(() => UserEntity)
 	public author: UserEntity;
 
-	@ManyToOne(type => PostEntity, post => post.comments)
+	@ManyToOne(
+		() => PostEntity,
+		post => post.comments
+	)
 	@Type(() => PostEntity)
 	public post: PostEntity;
 

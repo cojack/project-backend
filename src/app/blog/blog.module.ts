@@ -14,6 +14,4 @@ import { PostVoter } from './voter/post.voter';
 	controllers: [PostController, CommentController],
 	providers: [PostService, CommentService, PostVoter]
 })
-export class BlogModule {
-
-}
+export class BlogModule {}

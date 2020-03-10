@@ -7,6 +7,4 @@ import { HealthController } from './controller/health.controller';
 	providers: [...CommandHandlers, FixturesCli],
 	controllers: [HealthController]
 })
-export class CoreModule {
-
-}
+export class CoreModule {}

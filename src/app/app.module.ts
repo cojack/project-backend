@@ -9,7 +9,6 @@ import { BlogModule } from './blog/blog.module';
 import { AdminModule } from './admin/admin.module';
 import { SecurityModule } from './security/security.module';
 import { PassportModule } from '@nestjs/passport';
-import { awsSsmProvider } from './config/provider/aws-ssm.provider';
 
 @Module({
 	imports: [
@@ -28,5 +27,4 @@ import { awsSsmProvider } from './config/provider/aws-ssm.provider';
 		BlogModule
 	]
 })
-export class AppModule {
-}
+export class AppModule {}

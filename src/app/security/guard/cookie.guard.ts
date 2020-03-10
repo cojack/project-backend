@@ -5,11 +5,7 @@ import { TokenRepository } from '../repository';
 
 @Injectable()
 export class CookieGuard implements CanActivate {
-	constructor(
-		private readonly configService: ConfigService,
-		private readonly cookieRepository: TokenRepository,
-	) {
-	}
+	constructor(private readonly configService: ConfigService, private readonly cookieRepository: TokenRepository) {}
 
 	public async canActivate(context: ExecutionContext): Promise<boolean> {
 		const request: Request = context.switchToHttp().getRequest();
@@ -30,5 +26,4 @@ export class CookieGuard implements CanActivate {
 
 		return undefined;
 	}
-
 }

@@ -1,21 +1,10 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { UserLoginEvent, UserRegisterEvent } from '../event';
-import {
-	Column,
-	CreateDateColumn,
-	Entity,
-	Generated,
-	JoinTable,
-	ManyToMany,
-	PrimaryGeneratedColumn,
-	UpdateDateColumn,
-	VersionColumn
-} from 'typeorm';
+import { Column, CreateDateColumn, Entity, Generated, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
 import { RoleEntity } from './role.entity';
 
 @Entity()
 export class UserEntity extends AggregateRoot {
-
 	@PrimaryGeneratedColumn()
 	public id: string;
 
@@ -34,7 +23,7 @@ export class UserEntity extends AggregateRoot {
 	})
 	public password: string;
 
-	@ManyToMany(type => RoleEntity, {
+	@ManyToMany(() => RoleEntity, {
 		eager: true
 	})
 	@JoinTable()

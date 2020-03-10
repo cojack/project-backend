@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 export class VoterRegistry {
 	private voters = new Set<Voter>();
 
-	public register(voter: Voter) {
+	public register(voter: Voter): void {
 		this.voters.add(voter);
 	}
 

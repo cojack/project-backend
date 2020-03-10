@@ -1,4 +1,3 @@
 export class GetUserQuery {
-	constructor(public readonly id) {
-	}
+	constructor(public readonly id) {}
 }

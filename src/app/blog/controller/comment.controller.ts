@@ -24,6 +24,5 @@ import { CommentService } from '../comment.service';
 @ApiTags('comments')
 @Controller('posts/:postId/comments')
 export class CommentController implements CrudController<CommentEntity> {
-	constructor(public service: CommentService) {
-	}
+	constructor(public service: CommentService) {}
 }

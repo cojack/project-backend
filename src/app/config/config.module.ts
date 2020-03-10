@@ -1,34 +1,29 @@
-import { Abstract, DynamicModule, Global, Module, OnModuleInit, Provider, Type } from '@nestjs/common';
+import { Abstract, DynamicModule, Global, Module, Provider, Type } from '@nestjs/common';
 import { ConfigService } from './config.service';
 import { TypeOrmConfigService } from './typeorm-config.service';
 import { ENVIRONMENT_PROVIDER } from './config.constant';
 
-const SERVICES: any = [
-	ConfigService,
-	TypeOrmConfigService
-];
+const SERVICES: Provider[] = [ConfigService, TypeOrmConfigService];
 
 @Global()
 @Module({})
 export class ConfigModule {
-	static  forRoot(providers: Provider[] = []) {
+	public static forRoot(providers: Provider[] = []): DynamicModule {
 		if (providers.length) {
 			SERVICES.push(...providers);
 		}
 		return {
 			module: ConfigModule,
-			providers: [
-				...SERVICES
-			],
-			exports: [
-				...SERVICES
-			]
+			providers: [...SERVICES],
+			exports: [...SERVICES]
 		};
 	}
 
-	static forRootAsync(options: {
-		inject?: Array<Type<any> | string | symbol | Abstract<any> | Function>,
-		useFactory: (...args: any) => any
+	public static forRootAsync(options: {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		inject?: Array<Type<any> | string | symbol | Abstract<any> | Function>;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		useFactory: (...args: any) => any;
 	}): DynamicModule {
 		const provider: Provider = {
 			provide: ENVIRONMENT_PROVIDER,
@@ -40,12 +35,8 @@ export class ConfigModule {
 
 		return {
 			module: ConfigModule,
-			providers: [
-				...SERVICES
-			],
-			exports: [
-				...SERVICES
-			]
+			providers: [...SERVICES],
+			exports: [...SERVICES]
 		};
 	}
 }

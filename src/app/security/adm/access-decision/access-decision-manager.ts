@@ -4,15 +4,14 @@ import { AccessEnum, Voter } from '../voter';
 import { TokenStorageInterface } from '../authorization-checker';
 
 export class AccessDecisionManager implements AccessDecisionManagerInterface {
-
 	constructor(
 		private voters: Set<Voter>,
 		private strategy: AccessDecisionStrategyEnum = AccessDecisionStrategyEnum.STRATEGY_AFFIRMATIVE,
 		private allowIfAllAbstainDecisions: boolean = false,
 		private allowIfEqualGrantedDeniedDecisions: boolean = true
-	) {
-	}
+	) {}
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public async decide(token: TokenStorageInterface, attributes: any[], object: any): Promise<boolean> {
 		switch (this.strategy) {
 			case AccessDecisionStrategyEnum.STRATEGY_AFFIRMATIVE:
