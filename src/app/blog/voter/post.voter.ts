@@ -12,14 +12,11 @@ import { AclActionEnum, AclPossessionEnum } from '../../security/enum';
 export class PostVoter extends Voter {
 	public static readonly RESOURCE = 'posts';
 
-	private readonly attributes = [
-		CrudActions.ReadOne,
-		CrudActions.DeleteOne,
-		CrudActions.UpdateOne
-	];
+	private readonly attributes = [CrudActions.ReadOne, CrudActions.DeleteOne, CrudActions.UpdateOne];
 
 	constructor(
-		@InjectRepository(PostEntity) private readonly repository: Repository<PostEntity>,
+		@InjectRepository(PostEntity)
+		private readonly repository: Repository<PostEntity>,
 		private readonly voterRegistry: VoterRegistry,
 		private readonly accessControlService: AccessControlService
 	) {

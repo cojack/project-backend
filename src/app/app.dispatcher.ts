@@ -48,10 +48,12 @@ export class AppDispatcher {
 
 		const document = SwaggerModule.createDocument(this.app, options);
 		SwaggerModule.setup('/swagger', this.app, document);
-		this.app.use(swStats.getMiddleware({
-			swaggerSpec: document,
-			uriPath: '/swagger-stats'
-		}));
+		this.app.use(
+			swStats.getMiddleware({
+				swaggerSpec: document,
+				uriPath: '/swagger-stats'
+			})
+		);
 	}
 
 	private async startServer(): Promise<void> {

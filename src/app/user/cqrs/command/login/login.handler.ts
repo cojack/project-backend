@@ -5,15 +5,12 @@ import { UserEntity } from '../../../entity';
 
 @CommandHandler(LoginCommand)
 export class LoginHandler implements ICommandHandler<LoginCommand> {
-	constructor(
-		private readonly repository: UserRepository,
-		private readonly publisher: EventPublisher
-	) {}
+	constructor(private readonly repository: UserRepository, private readonly publisher: EventPublisher) {}
 
 	public async execute(command: LoginCommand): Promise<UserEntity> {
 		const { email, password } = command.credentials;
 		let user = await this.repository.findOne({
-			where: {email, password}
+			where: { email, password }
 		});
 		if (!user) {
 			return null;

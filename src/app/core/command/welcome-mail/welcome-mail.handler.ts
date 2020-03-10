@@ -5,7 +5,6 @@ import { UserEntity } from '../../../user/entity';
 
 @CommandHandler(WelcomeMailCommand)
 export class WelcomeMailHandler implements ICommandHandler<WelcomeMailCommand> {
-
 	public async execute(command: WelcomeMailCommand): Promise<void> {
 		const { user } = command;
 		await this.sendMail(user);

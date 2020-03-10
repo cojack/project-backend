@@ -1,3 +1,1 @@
-export class ErrorDto extends Error {
-
-}
+export class ErrorDto extends Error {}

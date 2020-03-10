@@ -10,17 +10,10 @@ import { GetTokenQuery } from '../security/cqrs/query/token/get-token.query';
 
 @Injectable()
 export class AuthService {
-	constructor(
-		private readonly commandBus: CommandBus,
-		private readonly queryBus: QueryBus,
-		private readonly jwtService: JwtService
-	) {
-	}
+	constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus, private readonly jwtService: JwtService) {}
 
-	public async login(credentials: CredentialsDto): Promise<{user: UserEntity, authToken: JwtDto}> {
-		const user: UserEntity = await this.commandBus.execute(
-			new LoginCommand(credentials)
-		);
+	public async login(credentials: CredentialsDto): Promise<{ user: UserEntity; authToken: JwtDto }> {
+		const user: UserEntity = await this.commandBus.execute(new LoginCommand(credentials));
 		if (!user) {
 			throw new NotFoundException();
 		}
@@ -29,13 +22,11 @@ export class AuthService {
 		await this.deleteToken(user);
 		await this.storeToken(user, authToken);
 
-		return {user, authToken};
+		return { user, authToken };
 	}
 
 	public register(data: RegisterDto): Promise<void> {
-		return this.commandBus.execute(
-			new RegisterCommand(data)
-		);
+		return this.commandBus.execute(new RegisterCommand(data));
 	}
 
 	public async validateToken(authToken: TokenDto): Promise<TokenEntity> {

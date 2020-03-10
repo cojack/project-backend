@@ -11,15 +11,12 @@ import { UserEntity } from '../../user/entity';
 export class JwtStrategy extends PassportStrategy(Strategy) {
 	private readonly logger = new AppLogger(JwtStrategy.name);
 
-	constructor(
-		private readonly configService: ConfigService,
-		private readonly authService: AuthService,
-	) {
+	constructor(private readonly configService: ConfigService, private readonly authService: AuthService) {
 		super({
 			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 			secretOrKey: configService.getEnv('APP_SESSION_SECRET'),
 			issuer: configService.getEnv('APP_UUID'),
-			audience: configService.getEnv('APP_SESSION_DOMAIN'),
+			audience: configService.getEnv('APP_SESSION_DOMAIN')
 		});
 	}
 

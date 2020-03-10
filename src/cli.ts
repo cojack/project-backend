@@ -4,5 +4,8 @@ import { AppModule } from './app';
 
 (async (): Promise<void> => {
 	const app = await NestFactory.createApplicationContext(AppModule);
-	app.select(CommandModule).get(CommandService).exec();
+	app
+		.select(CommandModule)
+		.get(CommandService)
+		.exec();
 })();

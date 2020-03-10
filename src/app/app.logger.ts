@@ -1,7 +1,7 @@
-import {LoggerService} from '@nestjs/common';
-import {createLogger, format, Logger, transports} from 'winston';
+import { LoggerService } from '@nestjs/common';
+import { createLogger, format, Logger, transports } from 'winston';
 
-const {combine, timestamp, label, printf} = format;
+const { combine, timestamp, label, printf } = format;
 
 const projectFormat = printf(opt => `${opt.timestamp} [${opt.level.toUpperCase()}] ${opt.label} - ${opt.message}`);
 
@@ -11,14 +11,8 @@ export class AppLogger implements LoggerService {
 	constructor(name?: string) {
 		this.logger = createLogger({
 			level: process.env.APP_LOGGER_LEVEL,
-			format: combine(
-				label({label: name}),
-				timestamp(),
-				projectFormat
-			),
-			transports: [
-				new transports.Console()
-			]
+			format: combine(label({ label: name }), timestamp(), projectFormat),
+			transports: [new transports.Console()]
 		});
 	}
 

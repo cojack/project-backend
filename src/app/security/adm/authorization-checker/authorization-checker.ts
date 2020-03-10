@@ -16,7 +16,7 @@ export class AuthorizationChecker implements AuthorizationCheckerInterface {
 	}
 
 	public async isGranted(user, attributes, subject = null): Promise<boolean> {
-		const token = {getUser: async (): Promise<UserEntity> => user};
+		const token = { getUser: async (): Promise<UserEntity> => user };
 
 		if (!Array.isArray(attributes)) {
 			attributes = [attributes];

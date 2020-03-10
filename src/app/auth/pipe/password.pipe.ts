@@ -9,8 +9,7 @@ interface PartialDataWithPassword {
 
 @Injectable()
 export class PasswordPipe implements PipeTransform<PartialDataWithPassword, PartialDataWithPassword> {
-	constructor(private readonly configService: ConfigService) {
-	}
+	constructor(private readonly configService: ConfigService) {}
 
 	public transform(data: PartialDataWithPassword): PartialDataWithPassword {
 		data.password = passwordHash(data.password, this.configService.getEnv('APP_SALT'));

@@ -58,11 +58,9 @@ export class ConfigService {
 	private static validateInput(envConfig: EnvConfig): EnvConfig {
 		const envVarsSchema: Joi.ObjectSchema = Joi.object(EnvSchema);
 
-		const { error, value: validatedEnvConfig } = envVarsSchema.validate(
-			envConfig, {
-				abortEarly: false
-			}
-		);
+		const { error, value: validatedEnvConfig } = envVarsSchema.validate(envConfig, {
+			abortEarly: false
+		});
 		if (error) {
 			throw new Error(`Config validation error: ${error.message}`);
 		}

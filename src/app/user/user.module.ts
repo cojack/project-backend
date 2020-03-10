@@ -8,16 +8,7 @@ import { RoleEntity } from './entity';
 import { QueryHandlers } from './cqrs/query';
 
 @Module({
-	imports: [
-		CqrsModule,
-		TypeOrmModule.forFeature([UserRepository, RoleEntity])
-	],
-	providers: [
-		...CommandHandlers,
-		...QueryHandlers,
-		UserAuthSaga
-	]
+	imports: [CqrsModule, TypeOrmModule.forFeature([UserRepository, RoleEntity])],
+	providers: [...CommandHandlers, ...QueryHandlers, UserAuthSaga]
 })
-export class UserModule {
-
-}
+export class UserModule {}

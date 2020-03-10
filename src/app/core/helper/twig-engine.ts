@@ -14,13 +14,18 @@ export function registerTwigEngine(app: NestExpressApplication, config: ConfigSe
 	const loader = new TwingLoaderFilesystem();
 	loader.addPath(__dirname + '/../../admin/template', 'admin');
 	// eslint-disable-next-line @typescript-eslint/camelcase
-	const twing = new TwingEnvironment(loader, { debug: true, cache: false, auto_reload: true });
+	const twing = new TwingEnvironment(loader, {
+		debug: true,
+		cache: false,
+		auto_reload: true
+	});
 	twing.addGlobal('config', config);
 	const express = app.getHttpAdapter().getInstance();
 	twing.addGlobal('url', express.locals.url);
 
 	app.engine('twig', (filePath, options, callback) => {
-		twing.render(filePath, options)
+		twing
+			.render(filePath, options)
 			.then(result => callback(null, result))
 			.catch(err => callback(err));
 	});

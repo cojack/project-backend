@@ -5,7 +5,6 @@ import { Transform, Type } from 'class-transformer';
 
 @Entity()
 export class AccessControlEntity extends AggregateRoot {
-
 	@PrimaryGeneratedColumn()
 	public id: string;
 
@@ -24,7 +23,7 @@ export class AccessControlEntity extends AggregateRoot {
 
 	@ManyToOne(() => RoleEntity)
 	@Type(() => RoleEntity)
-	@Transform((role: RoleEntity) => role.name, {toPlainOnly: true})
+	@Transform((role: RoleEntity) => role.name, { toPlainOnly: true })
 	public role: RoleEntity;
 
 	@CreateDateColumn()

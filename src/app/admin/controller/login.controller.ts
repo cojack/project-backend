@@ -10,11 +10,7 @@ import { AppLogger } from '../../app.logger';
 export class LoginController {
 	private readonly logger = new AppLogger(LoginController.name);
 
-	constructor(
-		private readonly configService: ConfigService,
-		private readonly authService: AuthService,
-	) {
-	}
+	constructor(private readonly configService: ConfigService, private readonly authService: AuthService) {}
 
 	@Render('@admin/login')
 	@Get('/login')
@@ -28,7 +24,9 @@ export class LoginController {
 			const { authToken } = await this.authService.login(credentials);
 
 			return res
-				.cookie(this.configService.getEnv('APP_COOKIE_NAME'), authToken.uuid, { expires: authToken.expiresAt })
+				.cookie(this.configService.getEnv('APP_COOKIE_NAME'), authToken.uuid, {
+					expires: authToken.expiresAt
+				})
 				.redirect('/admin');
 		} catch (err) {
 			this.logger.exception(err);

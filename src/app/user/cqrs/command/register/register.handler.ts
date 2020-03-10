@@ -4,10 +4,7 @@ import { RegisterCommand } from '../../../../auth';
 
 @CommandHandler(RegisterCommand)
 export class RegisterHandler implements ICommandHandler<RegisterCommand> {
-	constructor(
-		private readonly repository: UserRepository,
-		private readonly publisher: EventPublisher
-	) {}
+	constructor(private readonly repository: UserRepository, private readonly publisher: EventPublisher) {}
 
 	public async execute(command: RegisterCommand): Promise<void> {
 		let user = this.repository.create(command.register);

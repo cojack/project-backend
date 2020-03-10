@@ -5,8 +5,7 @@ import { StoreTokenCommand } from './store-token.command';
 
 @CommandHandler(StoreTokenCommand)
 export class StoreTokenHandler implements ICommandHandler<StoreTokenCommand> {
-	constructor(private readonly tokenRepository: TokenRepository) {
-	}
+	constructor(private readonly tokenRepository: TokenRepository) {}
 
 	public execute(command: StoreTokenCommand): Promise<TokenEntity> {
 		const { authToken, user } = command;

@@ -3,10 +3,7 @@ import { ConfigService } from './config.service';
 import { TypeOrmConfigService } from './typeorm-config.service';
 import { ENVIRONMENT_PROVIDER } from './config.constant';
 
-const SERVICES: Provider[] = [
-	ConfigService,
-	TypeOrmConfigService
-];
+const SERVICES: Provider[] = [ConfigService, TypeOrmConfigService];
 
 @Global()
 @Module({})
@@ -17,12 +14,8 @@ export class ConfigModule {
 		}
 		return {
 			module: ConfigModule,
-			providers: [
-				...SERVICES
-			],
-			exports: [
-				...SERVICES
-			]
+			providers: [...SERVICES],
+			exports: [...SERVICES]
 		};
 	}
 
@@ -42,12 +35,8 @@ export class ConfigModule {
 
 		return {
 			module: ConfigModule,
-			providers: [
-				...SERVICES
-			],
-			exports: [
-				...SERVICES
-			]
+			providers: [...SERVICES],
+			exports: [...SERVICES]
 		};
 	}
 }

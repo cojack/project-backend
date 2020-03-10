@@ -9,12 +9,7 @@ import { UserEntity } from '../../user/entity';
 
 @Injectable()
 export class CookieStrategy extends PassportStrategy(RedirectStrategy, 'cookie') {
-
-	constructor(
-		private readonly configService: ConfigService,
-		private readonly jwtService: JwtService,
-		private readonly authService: AuthService,
-	) {
+	constructor(private readonly configService: ConfigService, private readonly jwtService: JwtService, private readonly authService: AuthService) {
 		super({
 			cookieName: configService.getEnv('APP_COOKIE_NAME'),
 			redirectOnFail: '/admin/login'
@@ -22,7 +17,9 @@ export class CookieStrategy extends PassportStrategy(RedirectStrategy, 'cookie')
 	}
 
 	public async validate(cookie: string): Promise<UserEntity> {
-		const { user } = await this.authService.validateToken({ identity: cookie } as TokenDto);
+		const { user } = await this.authService.validateToken({
+			identity: cookie
+		} as TokenDto);
 		return user;
 	}
 }

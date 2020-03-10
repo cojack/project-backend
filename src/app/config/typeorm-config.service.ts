@@ -5,9 +5,7 @@ import { ConfigService } from './config.service';
 
 @Injectable()
 export class TypeOrmConfigService implements TypeOrmOptionsFactory {
-	constructor(private readonly configService: ConfigService) {
-
-	}
+	constructor(private readonly configService: ConfigService) {}
 
 	public createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {
