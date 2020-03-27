@@ -1,0 +1,6 @@
+entity: RegistrationSettingsEntity
+items:
+  registrationSettings:
+    enabled: true
+    passwordStrength: 3
+    notification: true

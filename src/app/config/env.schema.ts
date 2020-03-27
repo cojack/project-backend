@@ -15,6 +15,7 @@ export interface EnvInterface {
 	APP_DATABASE_USER: string;
 	APP_DATABASE_PASSWORD: string;
 	APP_DATABASE_NAME: string;
+	APP_DATABASE_cache: boolean;
 	APP_SESSION_SECRET: string;
 	APP_SESSION_TIMEOUT: string;
 	APP_SESSION_DOMAIN: string;
@@ -47,11 +48,12 @@ export const EnvSchema = {
 	APP_DATABASE_USER: Joi.string().required(),
 	APP_DATABASE_PASSWORD: Joi.string().required(),
 	APP_DATABASE_NAME: Joi.string().required(),
+	APP_DATABASE_CACHE: Joi.boolean().default(false),
 	APP_SESSION_SECRET: Joi.string().required(),
 	APP_SESSION_TIMEOUT: Joi.number().default(DAY_IN_SECONDS),
 	APP_SESSION_DOMAIN: Joi.string().required(),
 	APP_SESSION_REFRESH_SECRET: Joi.string().required(),
 	APP_SESSION_REFRESH_TIMEOUT: Joi.number().default(DAY_IN_SECONDS * 2),
 	APP_COOKIE_NAME: Joi.string().default('token'),
-	APP_COOKIE_SIGNED: Joi.bool().default(true)
+	APP_COOKIE_SIGNED: Joi.boolean().default(true)
 };

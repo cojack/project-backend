@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler, EventPublisher } from '@nestjs/cqrs';
-import { UserRepository } from '../../../user.repository';
+import { UserRepository } from '../../../repository/user.repository';
 import { LoginCommand } from '../../../../auth';
 import { UserEntity } from '../../../entity';
 

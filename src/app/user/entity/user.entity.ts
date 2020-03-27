@@ -1,23 +1,22 @@
-import { AggregateRoot } from '@nestjs/cqrs';
 import { UserLoginEvent, UserRegisterEvent } from '../event';
-import { Column, CreateDateColumn, Entity, Generated, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { RoleEntity } from './role.entity';
+import { BaseEntity } from '../../core/entity';
+import { passwordHash } from '../../core/helper';
+import { Validate } from 'class-validator';
+import { PasswordStrengthValidator, UniqueEmailValidator } from './validator';
 
 @Entity()
-export class UserEntity extends AggregateRoot {
-	@PrimaryGeneratedColumn()
-	public id: string;
+export class UserEntity extends BaseEntity {
 
-	@Column()
-	@Generated('uuid')
-	public uuid: string;
-
+	@Validate(UniqueEmailValidator)
 	@Column({
 		unique: true,
 		nullable: false
 	})
 	public email: string;
 
+	@Validate(PasswordStrengthValidator)
 	@Column({
 		nullable: false
 	})
@@ -29,14 +28,9 @@ export class UserEntity extends AggregateRoot {
 	@JoinTable()
 	public roles: RoleEntity[];
 
-	@CreateDateColumn()
-	public createdAt: Date;
-
-	@UpdateDateColumn()
-	public updatedAt: Date;
-
-	@VersionColumn()
-	public version: number;
+	public hashPassword(salt: string): void {
+		this.password = passwordHash(this.password, salt);
+	}
 
 	public loginEvent(): void {
 		this.apply(new UserLoginEvent(this));

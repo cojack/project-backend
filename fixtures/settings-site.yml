@@ -1,0 +1,8 @@
+entity: SiteSettingsEntity
+items:
+  siteSettings:
+    name: 'Project Backend'
+    description: 'Because I was bored'
+    domain: 'pb.local'
+    url: 'http://pb.local'
+    email: 'admin@pb.local'

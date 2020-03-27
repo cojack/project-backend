@@ -26,7 +26,7 @@ export class AuthController {
 	@UsePipes(ValidationPipe)
 	@ApiBody({ required: true, type: RegisterDto })
 	@ApiResponse({ status: 204, description: 'NO_CONTENT' })
-	public async register(@Body(PasswordPipe) data: RegisterDto): Promise<void> {
+	public async register(@Body() data: RegisterDto): Promise<void> {
 		return this.authService.register(data);
 	}
 }

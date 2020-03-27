@@ -13,10 +13,10 @@ TwigView.prototype.lookup = (name): string => name;
 export function registerTwigEngine(app: NestExpressApplication, config: ConfigService): void {
 	const loader = new TwingLoaderFilesystem();
 	loader.addPath(__dirname + '/../../admin/template', 'admin');
-	// eslint-disable-next-line @typescript-eslint/camelcase
 	const twing = new TwingEnvironment(loader, {
 		debug: true,
 		cache: false,
+		// eslint-disable-next-line @typescript-eslint/camelcase
 		auto_reload: true
 	});
 	twing.addGlobal('config', config);
