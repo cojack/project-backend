@@ -1,14 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserRepository } from './user.repository';
 import { CommandHandlers } from './cqrs/command';
 import { CqrsModule } from '@nestjs/cqrs';
-import { UserAuthSaga } from './cqrs/saga/user-auth.saga';
-import { RoleEntity } from './entity';
+import { UserAuthSaga } from './cqrs/saga';
+import { PasswordStrengthValidator, UniqueEmailValidator } from './entity/validator';
 import { QueryHandlers } from './cqrs/query';
+import { RoleRepository, UserRepository } from './repository';
+import { userProviders } from './user.provider';
 
 @Module({
-	imports: [CqrsModule, TypeOrmModule.forFeature([UserRepository, RoleEntity])],
-	providers: [...CommandHandlers, ...QueryHandlers, UserAuthSaga]
+	imports: [CqrsModule, TypeOrmModule.forFeature([UserRepository, RoleRepository])],
+	providers: [...CommandHandlers, ...QueryHandlers, ...userProviders, UserAuthSaga, UniqueEmailValidator, PasswordStrengthValidator],
+	exports: [TypeOrmModule]
 })
-export class UserModule {}
+export class UserModule {
+
+}

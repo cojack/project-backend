@@ -1,0 +1,5 @@
+entity: SettingsEntity
+items:
+  settings:
+    site: '@siteSettings'
+    registration: '@registrationSettings'

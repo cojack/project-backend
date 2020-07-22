@@ -9,12 +9,12 @@ export interface RedirectStrategyOptions {
 
 export class RedirectStrategy extends Strategy {
 	public readonly name = 'redirect';
-	private readonly verify: (req, cb) => {};
+	private readonly verify: (req, cb) => void;
 	private readonly cookieName: string;
 	private readonly signedCookie: boolean;
 	private readonly redirectOnFail: string;
 
-	constructor(options: RedirectStrategyOptions, callback: (req, cb) => {}) {
+	constructor(options: RedirectStrategyOptions, callback: (req, cb) => void) {
 		super();
 		this.verify = callback;
 		this.cookieName = options.cookieName;

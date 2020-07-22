@@ -1,11 +1,13 @@
-import { Body, Controller, HttpCode, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CredentialsDto, JwtDto, RegisterDto } from './dto';
 import { PasswordPipe } from './pipe/password.pipe';
 import { AuthService } from './auth.service';
 import { ExceptionDto } from '../core';
+import { RateLimiter } from './guard';
 
 @ApiTags('auth')
+@UseGuards(RateLimiter)
 @Controller('auth')
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
@@ -26,7 +28,7 @@ export class AuthController {
 	@UsePipes(ValidationPipe)
 	@ApiBody({ required: true, type: RegisterDto })
 	@ApiResponse({ status: 204, description: 'NO_CONTENT' })
-	public async register(@Body(PasswordPipe) data: RegisterDto): Promise<void> {
+	public async register(@Body() data: RegisterDto): Promise<void> {
 		return this.authService.register(data);
 	}
 }

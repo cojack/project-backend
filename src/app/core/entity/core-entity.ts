@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Generated, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from 'typeorm';
 import { AggregateRoot } from '@nestjs/cqrs';
 
-export class BaseEntity extends AggregateRoot {
+export class CoreEntity extends AggregateRoot {
 	@PrimaryGeneratedColumn()
 	public id: number;
 

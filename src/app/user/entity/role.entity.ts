@@ -1,8 +1,8 @@
 import { Column, Entity } from 'typeorm';
-import { BaseEntity } from '../../core/entity';
+import { CoreEntity } from '../../core/entity';
 
 @Entity()
-export class RoleEntity extends BaseEntity {
+export class RoleEntity extends CoreEntity {
 	@Column({ unique: true, nullable: false })
 	public name: string;
 }

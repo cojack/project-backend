@@ -2,9 +2,17 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import nodemailer from 'nodemailer';
 import { WelcomeMailCommand } from '../../../user/cqrs/command';
 import { UserEntity } from '../../../user/entity';
+import { TwingEnvironment, TwingLoaderFilesystem } from 'twing';
 
 @CommandHandler(WelcomeMailCommand)
 export class WelcomeMailHandler implements ICommandHandler<WelcomeMailCommand> {
+	private readonly twing: TwingEnvironment;
+
+	constructor() {
+		const loader = new TwingLoaderFilesystem(__dirname);
+		this.twing = new TwingEnvironment(loader);
+	}
+
 	public async execute(command: WelcomeMailCommand): Promise<void> {
 		const { user } = command;
 		await this.sendMail(user);
@@ -30,9 +38,8 @@ export class WelcomeMailHandler implements ICommandHandler<WelcomeMailCommand> {
 		const info = await transporter.sendMail({
 			from: '"Fred Foo 👻" <foo@example.com>', // sender address
 			to: user.email, // list of receivers
-			subject: 'Hello ✔', // Subject line
-			text: 'Hello world?', // plain text body
-			html: '<b>Hello world?</b>' // html body
+			subject: 'Welcome', // Subject line
+			html: await this.twing.render('welcome-mail.twig', { user })
 		});
 
 		console.log('Message sent: %s', info.messageId);
@@ -40,6 +47,5 @@ export class WelcomeMailHandler implements ICommandHandler<WelcomeMailCommand> {
 
 		// Preview only available when sending through an Ethereal account
 		console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-		// Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 	}
 }

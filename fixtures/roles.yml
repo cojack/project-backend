@@ -1,7 +1,7 @@
 entity: RoleEntity
 items:
   role1:
-    name: 'superadmin'
+    name: 'root'
   role2:
     name: 'admin'
   role3:

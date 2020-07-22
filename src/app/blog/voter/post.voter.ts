@@ -40,7 +40,8 @@ export class PostVoter extends Voter {
 	private async canRead(attribute: CrudActions, subject: CrudSubjectInterface, token): Promise<boolean> {
 		const user = await token.getUser();
 		const post = await this.repository.findOne(subject.params.id);
-		const permission = this.accessControlService.getAclPermission(user, subject.resource, AclActionEnum.READ, AclPossessionEnum.OWN);
-		return permission.granted && post.author === user;
+		const own = post.author === user;
+		const permission = this.accessControlService.getAclPermission(user, subject.resource, AclActionEnum.READ, own ? AclPossessionEnum.OWN : AclPossessionEnum.ANY);
+		return permission.granted;
 	}
 }

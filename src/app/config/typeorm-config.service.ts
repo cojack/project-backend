@@ -10,7 +10,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 	public createTypeOrmOptions(): TypeOrmModuleOptions {
 		return {
 			retryAttempts: 1,
-			logging: ['query', 'error', 'schema'],
+			logging: ['error'],
 			type: 'postgres',
 			host: this.configService.getEnv('APP_DATABASE_HOST'),
 			port: parseInt(this.configService.getEnv('APP_DATABASE_PORT'), 10),
@@ -18,8 +18,16 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			password: this.configService.getEnv('APP_DATABASE_PASSWORD'),
 			database: this.configService.getEnv('APP_DATABASE_NAME'),
 			entities: [process.cwd() + '/**/*.entity{.ts,.js}'],
-			synchronize: true
-			// migrations: [process.cwd() + '/**/*.migration{.ts,.js}']
+			migrations: [process.cwd() + '/**/*.migration{.ts,.js}'],
+			synchronize: true,
+			cache: {
+				type: this.configService.getEnv('APP_CACHE_TYPE'),
+				options: {
+					host: this.configService.getEnv('APP_CACHE_HOST'),
+					port: this.configService.getEnv('APP_CACHE_PORT')
+				},
+				duration: 3600
+			}
 		};
 	}
 }

@@ -2,16 +2,10 @@ import { Column, CreateDateColumn, Entity, Generated, ManyToOne, OneToMany, Prim
 import { CommentEntity } from './comment.entity';
 import { Type } from 'class-transformer';
 import { UserEntity } from '../../user/entity';
+import { CoreEntity } from '../../core/entity';
 
 @Entity()
-export class PostEntity {
-	@PrimaryGeneratedColumn()
-	public id: string;
-
-	@Column()
-	@Generated('uuid')
-	public uuid: string;
-
+export class PostEntity extends CoreEntity {
 	@Column({
 		nullable: false
 	})
@@ -43,13 +37,4 @@ export class PostEntity {
 	)
 	@Type(() => CommentEntity)
 	public comments: CommentEntity[];
-
-	@CreateDateColumn()
-	public createdAt: Date;
-
-	@UpdateDateColumn()
-	public updatedAt: Date;
-
-	@VersionColumn()
-	public version: number;
 }

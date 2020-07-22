@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { UserEntity } from '../../user/entity';
-import { BaseEntity } from '../../core/entity';
+import { CoreEntity } from '../../core/entity';
 
 @Entity()
-export class TokenEntity extends BaseEntity {
+export class TokenEntity extends CoreEntity {
 	@Column({ nullable: false })
 	public token: string;
 

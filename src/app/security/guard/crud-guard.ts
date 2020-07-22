@@ -18,6 +18,7 @@ export class CrudGuard implements CanActivate {
 		const action = getAction(handler);
 
 		const user = request.user as UserEntity;
+
 		const aclPermission = this.accessControlService.getCrudPermission(user, feature, action);
 
 		if (aclPermission.granted) {
