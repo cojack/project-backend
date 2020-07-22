@@ -17,7 +17,7 @@ export class FixturesCli {
 			describe: 'path to the fixtures',
 			type: 'string'
 		})
-		fixturesPath: string
+			fixturesPath: string
 	): Promise<void> {
 		const loader = new Loader();
 		loader.load(path.resolve(fixturesPath));

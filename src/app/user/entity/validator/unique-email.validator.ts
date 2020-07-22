@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
-import { UserRepository } from '../../repository';
+import { Repository } from 'typeorm';
+import { UserEntity } from '../user.entity';
+import { USER_REPOSITORY } from '../../user.constant';
 
 @ValidatorConstraint({ name: 'Unique', async: true })
 @Injectable()
 export class UniqueEmailValidator implements ValidatorConstraintInterface {
 	constructor(
-		private readonly repository: UserRepository
+		@Inject(USER_REPOSITORY) private readonly userRepository: Repository<UserEntity>
 	) {
 	}
 
@@ -15,8 +17,7 @@ export class UniqueEmailValidator implements ValidatorConstraintInterface {
 	}
 
 	public async validate(email: string/*, validationArguments?: ValidationArguments*/): Promise<boolean> {
-		//const amount = await this.userRepository.count({where: { email }});
-		const amount = Math.random();
+		const amount = await this.userRepository.count({where: { email }});
 		return amount === 0;
 	}
 }

@@ -1,8 +1,8 @@
-import { BaseEntity } from '../base.entity';
+import { CoreEntity } from '../core-entity';
 import { Column, Entity } from 'typeorm';
 
 @Entity()
-export class SiteSettingsEntity extends BaseEntity {
+export class SiteSettingsEntity extends CoreEntity {
 	@Column()
 	public name: string;
 

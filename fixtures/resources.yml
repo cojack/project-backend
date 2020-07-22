@@ -1,0 +1,6 @@
+entity: ResourceEntity
+items:
+  res1:
+    name: 'admin'
+  res2:
+    name: 'posts'
