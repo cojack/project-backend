@@ -1,6 +1,7 @@
 import Joi from '@hapi/joi';
 
 const DAY_IN_SECONDS = 86400;
+type CACHE_TYPE = 'redis';
 
 export interface EnvInterface {
 	NODE_ENV: string;
@@ -15,7 +16,10 @@ export interface EnvInterface {
 	APP_DATABASE_USER: string;
 	APP_DATABASE_PASSWORD: string;
 	APP_DATABASE_NAME: string;
-	APP_DATABASE_cache: boolean;
+	APP_DATABASE_CACHE: boolean;
+	APP_CACHE_TYPE: CACHE_TYPE;
+	APP_CACHE_HOST: string;
+	APP_CACHE_PORT: number;
 	APP_SESSION_SECRET: string;
 	APP_SESSION_TIMEOUT: string;
 	APP_SESSION_DOMAIN: string;
@@ -49,6 +53,9 @@ export const EnvSchema = {
 	APP_DATABASE_PASSWORD: Joi.string().required(),
 	APP_DATABASE_NAME: Joi.string().required(),
 	APP_DATABASE_CACHE: Joi.boolean().default(false),
+	APP_CACHE: Joi.string().valid('redis'),
+	APP_CACHE_HOST: Joi.string().default('127.0.0.1'),
+	APP_CACHE_PORT: Joi.number().default(6379),
 	APP_SESSION_SECRET: Joi.string().required(),
 	APP_SESSION_TIMEOUT: Joi.number().default(DAY_IN_SECONDS),
 	APP_SESSION_DOMAIN: Joi.string().required(),

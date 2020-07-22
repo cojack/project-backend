@@ -1,11 +1,13 @@
-import { Body, Controller, HttpCode, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CredentialsDto, JwtDto, RegisterDto } from './dto';
 import { PasswordPipe } from './pipe/password.pipe';
 import { AuthService } from './auth.service';
 import { ExceptionDto } from '../core';
+import { RateLimiter } from './guard';
 
 @ApiTags('auth')
+@UseGuards(RateLimiter)
 @Controller('auth')
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}

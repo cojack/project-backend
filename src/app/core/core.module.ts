@@ -6,6 +6,7 @@ import { FixturesCli } from './fixtures.cli';
 import { HealthController } from './controller/health.controller';
 import { SettingsRepository } from './repository';
 import { ClassValidatorFilter } from './exception';
+import { coreProviders } from './core.provider';
 
 @Global()
 @Module({
@@ -13,12 +14,13 @@ import { ClassValidatorFilter } from './exception';
 	controllers: [HealthController],
 	providers: [
 		...CommandHandlers,
+		...coreProviders,
 		FixturesCli,
 		{
 			provide: APP_FILTER,
 			useClass: ClassValidatorFilter
 		}
 	],
-	exports: [TypeOrmModule]
+	exports: [TypeOrmModule, ...coreProviders]
 })
 export class CoreModule {}
