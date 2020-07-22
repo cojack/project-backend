@@ -21,10 +21,10 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
 			migrations: [process.cwd() + '/**/*.migration{.ts,.js}'],
 			synchronize: true,
 			cache: {
-				type: 'redis',
+				type: this.configService.getEnv('APP_CACHE_TYPE'),
 				options: {
-					host: 'localhost',
-					port: 6379
+					host: this.configService.getEnv('APP_CACHE_HOST'),
+					port: this.configService.getEnv('APP_CACHE_PORT')
 				},
 				duration: 3600
 			}

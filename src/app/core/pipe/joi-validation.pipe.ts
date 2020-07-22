@@ -5,7 +5,7 @@ import { Schema } from '@hapi/joi';
 export class JoiValidationPipe implements PipeTransform {
 	constructor(private readonly schema: Schema) {}
 
-	public transform(value: object): object {
+	public transform(value: Record<string, unknown>): Record<string, unknown> {
 		const { error } = this.schema.validate(value);
 		if (error) {
 			throw new BadRequestException('Validation failed');

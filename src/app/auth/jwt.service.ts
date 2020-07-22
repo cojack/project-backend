@@ -42,7 +42,7 @@ export class JwtService {
 		};
 	}
 
-	private createToken(payload: object, expiresIn: number, secret: string): string {
+	private createToken(payload: Record<string, unknown>, expiresIn: number, secret: string): string {
 		return sign(payload, secret, {
 			expiresIn,
 			audience: this.configService.getEnv('APP_SESSION_DOMAIN'),

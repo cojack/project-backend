@@ -16,7 +16,6 @@ export function registerTwigEngine(app: NestExpressApplication, config: ConfigSe
 	const twing = new TwingEnvironment(loader, {
 		debug: true,
 		cache: false,
-		// eslint-disable-next-line @typescript-eslint/camelcase
 		auto_reload: true
 	});
 	twing.addGlobal('config', config);

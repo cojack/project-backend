@@ -14,14 +14,14 @@ export class AccessDecisionManager implements AccessDecisionManagerInterface {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public async decide(token: TokenStorageInterface, attributes: any[], object: any): Promise<boolean> {
 		switch (this.strategy) {
-			case AccessDecisionStrategyEnum.STRATEGY_AFFIRMATIVE:
-				return this.decideAffirmative(token, attributes, object);
-			case AccessDecisionStrategyEnum.STRATEGY_CONSENSUS:
-				return this.decideConsensus(token, attributes, object);
-			case AccessDecisionStrategyEnum.STRATEGY_UNANIMOUS:
-				return this.decideUnanimous(token, attributes, object);
-			default:
-				throw new Error(`The strategy "${this.strategy}" is not supported.`);
+		case AccessDecisionStrategyEnum.STRATEGY_AFFIRMATIVE:
+			return this.decideAffirmative(token, attributes, object);
+		case AccessDecisionStrategyEnum.STRATEGY_CONSENSUS:
+			return this.decideConsensus(token, attributes, object);
+		case AccessDecisionStrategyEnum.STRATEGY_UNANIMOUS:
+			return this.decideUnanimous(token, attributes, object);
+		default:
+			throw new Error(`The strategy "${this.strategy}" is not supported.`);
 		}
 	}
 
@@ -30,13 +30,13 @@ export class AccessDecisionManager implements AccessDecisionManagerInterface {
 		for (const voter of this.voters) {
 			const result = await voter.vote(token, object, attributes);
 			switch (result) {
-				case AccessEnum.ACCESS_GRANTED:
-					return true;
-				case AccessEnum.ACCESS_DENIED:
-					++deny;
-					break;
-				default:
-					break;
+			case AccessEnum.ACCESS_GRANTED:
+				return true;
+			case AccessEnum.ACCESS_DENIED:
+				++deny;
+				break;
+			default:
+				break;
 			}
 		}
 		if (deny > 0) {
@@ -51,12 +51,12 @@ export class AccessDecisionManager implements AccessDecisionManagerInterface {
 		for (const voter of this.voters) {
 			const result = await voter.vote(token, object, attributes);
 			switch (result) {
-				case AccessEnum.ACCESS_GRANTED:
-					++grant;
-					break;
-				case AccessEnum.ACCESS_DENIED:
-					++deny;
-					break;
+			case AccessEnum.ACCESS_GRANTED:
+				++grant;
+				break;
+			case AccessEnum.ACCESS_DENIED:
+				++deny;
+				break;
 			}
 		}
 		if (grant > deny) {
@@ -77,13 +77,13 @@ export class AccessDecisionManager implements AccessDecisionManagerInterface {
 			for (const attribute of attributes) {
 				const result = await voter.vote(token, object, [attribute]);
 				switch (result) {
-					case AccessEnum.ACCESS_GRANTED:
-						++grant;
-						break;
-					case AccessEnum.ACCESS_DENIED:
-						return false;
-					default:
-						break;
+				case AccessEnum.ACCESS_GRANTED:
+					++grant;
+					break;
+				case AccessEnum.ACCESS_DENIED:
+					return false;
+				default:
+					break;
 				}
 			}
 		}

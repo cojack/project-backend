@@ -35,22 +35,22 @@ export class AccessControlService {
 
 	private convertAction(action: CrudActions): string {
 		switch (action) {
-			case CrudActions.CreateMany:
-				return Action.CREATE;
-			case CrudActions.CreateOne:
-				return Action.CREATE;
-			case CrudActions.ReadAll:
-				return Action.READ;
-			case CrudActions.ReadOne:
-				return Action.READ;
-			case CrudActions.UpdateOne:
-				return Action.UPDATE;
-			case CrudActions.ReplaceOne:
-				return Action.UPDATE;
-			case CrudActions.DeleteAll:
-				return Action.DELETE;
-			case CrudActions.DeleteOne:
-				return Action.DELETE;
+		case CrudActions.CreateMany:
+			return Action.CREATE;
+		case CrudActions.CreateOne:
+			return Action.CREATE;
+		case CrudActions.ReadAll:
+			return Action.READ;
+		case CrudActions.ReadOne:
+			return Action.READ;
+		case CrudActions.UpdateOne:
+			return Action.UPDATE;
+		case CrudActions.ReplaceOne:
+			return Action.UPDATE;
+		case CrudActions.DeleteAll:
+			return Action.DELETE;
+		case CrudActions.DeleteOne:
+			return Action.DELETE;
 		}
 	}
 }
